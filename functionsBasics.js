@@ -1,0 +1,77 @@
+// SCOPE
+// Scope determines the accessibility (AKA Visibility) of variables
+// Where we create a variable determines where it can be used/called
+
+// FUNCTION SCOPE (Each function has it's own scope)
+
+// Example 1
+const location = `Scranton, PA`;
+function dunderMifflin() {
+  const regionalManager = `Michael Scott`;
+  console.log(regionalManager); // This is OK because the console log is also inside the function where the regionalManager variable was created (The regionalManager variable is scoped to the dunderMifflin function)
+}
+dunderMifflin();
+console.log(location); // This is OK because the location variable is scoped to the entire JavaScript
+
+// NOT okay because the regionalManager variable was created inside the dunderMifflin function so it is scoped to that function. There we cannot access it outside the function.
+// console.log(regionalManager);
+
+console.log('========');
+
+// Example 2
+let dwight = `Assistant to the Regional Manager`;
+function promotion() {
+  dwight = `Assistant Regional Manager`;
+}
+console.log(dwight); // Displays the initial value of the dwight variable because the function has not been run/executed yet.
+promotion();
+console.log(dwight); // Displays the updated value of the dwight variable because the function was run/executed. Also, it is able to access the new value because the variable was created/initialized outside of the function.
+
+console.log('========');
+
+// Example 3
+let declare = "";
+function bankruptcy() {
+  let declare = `I... DECLARE... BANKRUPTCY!!!`;
+  console.log(declare); // First, checks for a variable with the name of declare inside the function/scope, then outside of the function/scope if one inside cannot be found.
+}
+bankruptcy();
+console.log(declare); // Will only display the value of the declare variable outside of the bankruptcy function. (This is because the variable in the function is creating a new/different variable, NOT updating the value of the first one).
+
+// BLOCK SCOPE (Conditional Statements and Loops have Block Scope)
+// Conditional Statements Example
+const seasons = 9;
+if (seasons === 9){
+  const episodes = 201;
+}
+// OK because the seasons variable is scoped to the entire JavaScript file (AKA Globally scoped).
+console.log(seasons);
+// NOT OK because the episodes variable is scoped to the conditional block
+// console.log(episodes);
+
+console.log("=========");
+
+// Loops Example
+for (i = 1; i <= 3; i++){
+  // You can create variables in a loop without getting an error because it will be initialized/declared each time through the loop (AKA It is like it is being created for the first time each time through the loop)
+  const fireDrill = `What's the procedure everyone?`;
+  console.log(fireDrill);
+}
+// NOT Okay, because the fireDrill variable is scoped to the loop block
+// console.log(fireDrill);
+
+console.log("========");
+
+// LEXICAL SCOPE
+// Lexical Scope is the ability for function scope to access variables from the "parent" scope (NOTE: The "parent" scope can be another function or the entire JavaScript file)
+
+// Nested Functions Example
+function question() {
+  const fearLoved = `Would I rather be feared or loved?`;
+  function answer() {
+    const easyBoth = `Easy. Both. I want people to be afraid of how much they love me`;
+    console.log(easyBoth);
+  }
+}
+question();
+answer();
